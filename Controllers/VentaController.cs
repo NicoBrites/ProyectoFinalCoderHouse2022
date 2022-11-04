@@ -21,11 +21,9 @@ namespace ProyectoFinalCoderHouse2022.Controllers
 
         }
         [HttpGet]
-        public Dictionary<Venta,List<Producto>> TraerVenta() // list<TraerVenta>
+        public List<TraerVenta> TraerVenta() // list<TraerVenta>
         {
             return Ado_Venta.TraerVentas();
         }
-
-
     }
 }

@@ -13,8 +13,5 @@ namespace ProyectoFinalCoderHouse2022.Controllers
         {
             return Ado_ProductoVenta.TraerProductoVendido(idUsuario);
         }
-        
-
-
     }
 }

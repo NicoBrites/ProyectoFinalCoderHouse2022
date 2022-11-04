@@ -7,37 +7,7 @@ namespace ProyectoFinalCoderHouse2022.Repository
 
     public class Ado_Usuario
     {
-        public static List<Usuario> TraerListaUsuarios()
-        {
-            var listaUsuario = new List<Usuario>();
-
-
-            using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
-            {
-                conecction.Open();
-
-                SqlCommand cmd = conecction.CreateCommand();
-                cmd.CommandText = "SELECT * FROM usuario ";
-
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    var usur = new Usuario();
-
-                    usur.Id = Convert.ToInt32(reader.GetValue(0));
-                    usur.Nombre = reader.GetValue(1).ToString();
-                    usur.Apellido = reader.GetValue(2).ToString();
-                    usur.NombreUsuario = reader.GetValue(3).ToString();
-                    usur.Contraseña = reader.GetValue(4).ToString();
-                    usur.Mail = reader.GetValue(5).ToString();
-
-                    listaUsuario.Add(usur);
-                }
-                reader.Close();
-
-                return listaUsuario;
-            }
-        }
+        
         public static Usuario TraerUsuario(int idUsu)
         {
             Usuario usuario = new Usuario();
@@ -135,16 +105,12 @@ namespace ProyectoFinalCoderHouse2022.Repository
 
         public static void CrearUsuario(Usuario usu)
         {
-
-
             using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
             {
                 conecction.Open();
 
                 Usuario usuarioViejo = new Usuario();
-
                 usuarioViejo = TraerUsuario(usu.Id);
-
 
                 if (usu.NombreUsuario != usuarioViejo.NombreUsuario)
                 {
@@ -179,7 +145,7 @@ namespace ProyectoFinalCoderHouse2022.Repository
                 }
                 else
                 {
-                    
+                    throw new Exception("El nombre de usuario ya esta en uso..");
                 }
                 
             }

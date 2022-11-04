@@ -1,5 +1,7 @@
-﻿using ProyectoFinalCoderHouse2022.Models;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using ProyectoFinalCoderHouse2022.Models;
 using System.Data.SqlClient;
+using System.Reflection.PortableExecutable;
 
 namespace ProyectoFinalCoderHouse2022.Repository
 {
@@ -36,8 +38,22 @@ namespace ProyectoFinalCoderHouse2022.Repository
                 }
                 reader.Close();
 
+            }
+
+            if (usuario.Id == 0) // No explicaron como devolver un error en una api...
+            {
+                usuario.Nombre = "Error";
+                usuario.Apellido = "Error";
+                usuario.NombreUsuario = "Error";
+                usuario.Contraseña = "Error";
+                usuario.Mail = "Error";
+                throw new Exception("Error, no coincide el usuario y la contraseña");
+            }
+            else
+            {
                 return usuario;
             }
+
         }
 
 

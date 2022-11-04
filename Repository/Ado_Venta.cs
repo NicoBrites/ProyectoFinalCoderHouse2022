@@ -2,148 +2,14 @@
 using ProyectoFinalCoderHouse2022.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Reflection.PortableExecutable;
 
 namespace ProyectoFinalCoderHouse2022.Repository
 {
     public class Ado_Venta
     {
-        public static Dictionary<Venta, List<Producto>> TraerVentas()
-        {
-            var listaVenta = new List<Venta>();
-            TraerVenta TraerVenta = new TraerVenta();
-            var  listaVentaId = new List<Venta>();
-            var listaProducto = new List<Producto>();
-            var Dicc = new Dictionary<Venta, List<Producto>>();
-            using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
-            {
-                conecction.Open();
-                SqlCommand cmd = conecction.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Venta";
-
-
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    var venta = new Venta();
-
-                    venta.Id = Convert.ToInt32(reader.GetValue(0));
-                    venta.Comentarios = reader.GetValue(1).ToString();
-                    venta.IdUsuario = Convert.ToInt32(reader.GetValue(2));
-
-
-
-                    listaVenta.Add(venta);
-                }
-               
-                foreach (Venta venta1 in listaVenta)
-                {
-                    SqlCommand cmd2 = conecction.CreateCommand();
-                    cmd2.CommandText = "Select p.Descripciones\r\n" +
-                        "from producto as p\r\n" +
-                        "INNER JOIN ProductoVendido as pv\r\n" +
-                        "on (p.Id = pv.IdProducto)\r\n" +
-                        "INNER JOIN Venta as v\r\n" +
-                        "on (pv.IdVenta= @ventaId )\n" 
-                        ;
-
-                    var paramVentaId = new SqlParameter("ventaId", System.Data.SqlDbType.Int);
-                    paramVentaId.Value = venta1.Id;
-
-                    cmd.Parameters.Add(paramVentaId);
-
-                    var reader2 = cmd2.ExecuteReader();
-                    while (reader2.Read())
-                    {
-                        var producto = new Producto();
-
-                        producto.Descripcion = reader.GetValue(0).ToString();
-                        listaProducto.Add(producto);
-
-                        Dicc.Add(venta1, listaProducto);
-                    }
-                }
-                   
-
-
-
-                  //  TraerVenta.Venta.Add(venta);
-
-
-
-                
-
-                return Dicc;
-
-
-
-                /*
-                foreach (Venta venta1 in listaVenta)
-                {
-                    TraerVenta.Venta.Add(venta1);
-                }
-             *//*
-                    reader.Close();
-                conecction.Close();
-
-                SqlCommand cmd1 = conecction.CreateCommand();
-                cmd1.CommandText = "SELECT id FROM Venta";
-
-                var reader1 = cmd1.ExecuteReader();
-                while (reader1.Read())
-                {
-                    var venta = new Venta();
-
-                    venta.Id = Convert.ToInt32(reader.GetValue(0));
-                    venta.Comentarios = reader.GetValue(1).ToString();
-                    venta.IdUsuario = Convert.ToInt32(reader.GetValue(2));
-
-                    listaVentaId.Add(venta);
-
-                }
-
-                foreach (Venta ventaId in listaVentaId)
-                {
-                    SqlCommand cmd2 = conecction.CreateCommand();
-                    cmd2.CommandText = "Select p.Descripciones\r\n" +
-                        "from producto as p\r\n" +
-                        "INNER JOIN ProductoVendido as pv\r\n" +
-                        "on (p.Id = pv.IdProducto)\r\n" +
-                        "INNER JOIN Venta as v\r\n" +
-                        "on (pv.IdVenta= @ventaId )";
-
-                    var paramVentaId = new SqlParameter("ventaId", System.Data.SqlDbType.Int);
-                    paramVentaId.Value = ventaId;
-
-                    cmd.Parameters.Add(paramVentaId);
-
-                    var reader2 = cmd2.ExecuteReader();
-                    while (reader2.Read())
-                    {
-                        var producto = new Producto();
-
-                        producto.Descripcion = reader.GetValue(0).ToString();
-
-
-                        TraerVenta.Producto.Insert(ventaId);
-                    }/*
-                    foreach (Producto producto2 in listaProducto)
-                    {
-                        TraerVenta.Producto.Add(producto2);
-                    }
-
-                }
-                return TraerVenta;
-
-*/
-            }
-          
-
-
-
-
-
-
-        }
+      
+        
         public static void CargarVenta(CrearVenta venta)
         {
             long idVenta;
@@ -256,23 +122,97 @@ namespace ProyectoFinalCoderHouse2022.Repository
             }
         }
 
-
-
-        // Debe traer todas las ventas de la base, incluyendo sus Productos, cuya información está en ProductosVendidos.
-        /*
-        public static TraerVenta TraerVentas1()
+        public static List<Venta> TraerListaVentas()
         {
-            TraerVenta trerVenta = new TraerVenta();
+            var listaVenta = new List<Venta>();
+            TraerVenta TraerVenta = new TraerVenta();
+            var listaVentaId = new List<Venta>();
+            var listaProducto = new List<Producto>();
+            var Dicc = new Dictionary<Venta, List<Producto>>();
+            using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
+            {
+                conecction.Open();
+                SqlCommand cmd = conecction.CreateCommand();
+                cmd.CommandText = "SELECT * FROM Venta";
 
-            trerVenta = TraerVentas();
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var venta = new Venta();
+
+                    venta.Id = Convert.ToInt32(reader.GetValue(0));
+                    venta.Comentarios = reader.GetValue(1).ToString();
+                    venta.IdUsuario = Convert.ToInt32(reader.GetValue(2));
+
+                    listaVenta.Add(venta);
+                }
+                reader.Close();
+                conecction.Close();
 
 
-            return trerVenta;
+
+            }
+            return listaVenta;
 
 
-    
+        }
 
-        }*/
+        public static List<TraerVenta> TraerVentas()
+        {
+            List<Venta> listaVentas = TraerListaVentas();
+            List<TraerVenta> result = new List<TraerVenta>();
+            
+
+            foreach (Venta venta in listaVentas)
+            {
+
+                using (SqlConnection conecction1 = new SqlConnection(Connection.connectionString()))
+                {
+
+                    conecction1.Open();
+
+                    var TraerVenta = new TraerVenta();
+                    var listaProducto = new List<Producto>();
+                    TraerVenta.Venta = venta;
+                    result.Add(TraerVenta);
+
+                    SqlCommand cmd2 = conecction1.CreateCommand();
+                    cmd2.CommandText = "Select p.Id, p.Descripciones, p.Costo, p.PrecioVenta, p.Stock, p.IdUsuario \r\n" +
+                        "from producto as p\r\n" +
+                        "INNER JOIN ProductoVendido as pv\r\n" +
+                        "on (pv.IdProducto = p.Id) and (pv.IdVenta = @ventaId)\r\n";
+
+                    var paramVentaId = new SqlParameter("ventaId", System.Data.SqlDbType.Int);
+                    paramVentaId.Value = venta.Id;
+
+                    cmd2.Parameters.Add(paramVentaId);
+
+                    var reader2 = cmd2.ExecuteReader();
+                    while (reader2.Read())
+                    {
+                        var producto = new Producto();
+
+                        producto.Id = Convert.ToInt32(reader2.GetValue(0));
+                        producto.Descripcion = reader2.GetValue(1).ToString();
+                        producto.Costo = Convert.ToInt32(reader2.GetValue(2));
+                        producto.PrecioVenta = Convert.ToInt32(reader2.GetValue(3));
+                        producto.Stock = Convert.ToInt32(reader2.GetValue(4));
+                        producto.IdUsuario = Convert.ToInt32(reader2.GetValue(5));
+                        
+                        listaProducto.Add(producto);
+
+                    }
+
+
+                    TraerVenta.ProductoLista = listaProducto;
+                    result.Add(TraerVenta);
+                }
+
+            }
+                return result;
+
         }
     }
+}
 

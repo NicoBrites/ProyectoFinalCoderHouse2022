@@ -7,13 +7,7 @@ namespace ProyectoFinalCoderHouse2022.Controllers
     [Route("Api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
-    {
-        /*[HttpGet("GetListUsuarios")]
-        public List<Usuario> GetUsuarios()
-        {
-            return Ado_Usuario.TraerListaUsuarios();
-        }*/
-        
+    {        
         [HttpGet("GetUsuarios")]
         public Usuario Traer(int id)
         {
@@ -34,20 +28,10 @@ namespace ProyectoFinalCoderHouse2022.Controllers
 
         }
         [HttpPost]
-        public IActionResult Crear([FromBody] Usuario usu)
+        public void Crear([FromBody] Usuario usu)
         {
-            try
-            {
                 Ado_Usuario.CrearUsuario(usu);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-
+        
         }
-
     }
 }

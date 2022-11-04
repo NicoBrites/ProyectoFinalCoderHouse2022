@@ -9,18 +9,12 @@ namespace ProyectoFinalCoderHouse2022.Repository
         {
             var listaProductoVenta = new List<ProductoVenta>();
 
-            SqlConnectionStringBuilder conecctionbuilder = new();
-            conecctionbuilder.DataSource = "NIKITODEVSS1";
-            conecctionbuilder.InitialCatalog = "SistemaGestion";
-            conecctionbuilder.IntegratedSecurity = true;
-            var cs = conecctionbuilder.ConnectionString;
-
             List<Producto> productos = Ado_Producto.TraerProductoPorUsuario(idUsuario);
 
             foreach (Producto p in productos)
             {
 
-                using (SqlConnection conecction = new SqlConnection(cs))
+                using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
                 {
                     conecction.Open();
                     SqlCommand cmd = conecction.CreateCommand();
