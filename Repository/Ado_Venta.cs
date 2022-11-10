@@ -8,8 +8,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
 {
     public class Ado_Venta
     {
-      
-        
         public static void CargarVenta(CrearVenta venta)
         {
             long idVenta;
@@ -34,10 +32,8 @@ namespace ProyectoFinalCoderHouse2022.Repository
                 cmd.Parameters.Add(paramIdUsuarioVenta);
                 idVenta = Convert.ToInt64(cmd.ExecuteScalar());
 
-
                 foreach (ProductoVenta producto in venta.ProductosVendidos)
                 {
-
                     SqlCommand cmd1 = conecction.CreateCommand();
                     cmd1.CommandText = "Insert into ProductoVendido(Stock, IdProducto, IdVenta)" +
                                        "values (@stockProdVendido, @idProd, @idVenta)\n" +
@@ -58,8 +54,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
                     cmd1.Parameters.Add(paramIdProd);
                     cmd1.Parameters.Add(paramIdVenta);
                     cmd1.ExecuteNonQuery();
-
-
                 }
             }
         }
@@ -76,7 +70,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
 
                 SqlCommand cmd = conecction.CreateCommand();
                 cmd.CommandText = "Select * FROM ProductoVendido WHERE idVenta = @idVenta";
-
 
 
                 var paramIdVentaa = new SqlParameter("idVenta", System.Data.SqlDbType.VarChar);
@@ -96,9 +89,7 @@ namespace ProyectoFinalCoderHouse2022.Repository
 
                     listaProductoVendido.Add(productoVendido);
                 }
-
                 reader.Close();
-
                 foreach (ProductoVenta producto in listaProductoVendido)
                 {
 
@@ -121,7 +112,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
                 }
             }
         }
-
         public static List<Venta> TraerListaVentas()
         {
             var listaVenta = new List<Venta>();
@@ -149,27 +139,19 @@ namespace ProyectoFinalCoderHouse2022.Repository
                 }
                 reader.Close();
                 conecction.Close();
-
-
-
             }
             return listaVenta;
-
-
         }
-
+        // Traer Ventas: Debe traer todas las ventas de la base, incluyendo sus Productos, cuya información está en ProductosVendidos.
         public static List<TraerVenta> TraerVentas()
         {
             List<Venta> listaVentas = TraerListaVentas();
             List<TraerVenta> result = new List<TraerVenta>();
             
-
             foreach (Venta venta in listaVentas)
             {
-
                 using (SqlConnection conecction1 = new SqlConnection(Connection.connectionString()))
                 {
-
                     conecction1.Open();
 
                     var TraerVenta = new TraerVenta();
@@ -204,14 +186,12 @@ namespace ProyectoFinalCoderHouse2022.Repository
 
                     }
 
-
                     TraerVenta.ProductoLista = listaProducto;
                     result.Add(TraerVenta);
                 }
 
             }
                 return result;
-
         }
     }
 }

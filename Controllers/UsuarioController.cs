@@ -13,25 +13,20 @@ namespace ProyectoFinalCoderHouse2022.Controllers
         {
             return Ado_Usuario.TraerUsuario(id);
         }
-        
         [HttpDelete]
         public void Eliminar([FromBody] int id)
         {
             Ado_Usuario.DeleteUsuario(id);
-
         }
-
         [HttpPut]
         public void Modificar([FromBody] Usuario usu)
         {
             Ado_Usuario.ModificarUsuario(usu);
-
         }
         [HttpPost]
         public void Crear([FromBody] Usuario usu)
         {
                 Ado_Usuario.CrearUsuario(usu);
-        
         }
     }
 }

@@ -16,7 +16,6 @@ namespace ProyectoFinalCoderHouse2022.Models
         public string Contraseña { get; set; }
         [Required]
         public string Mail { get; set; }
-
         public Usuario()
         {
             Id = 0;

@@ -6,7 +6,6 @@
         public int Stock { get; set; }
         public int IdProducto { get; set; }
         public int IdVenta { get; set; }
-
         public ProductoVenta()
         {
             Id = 0;

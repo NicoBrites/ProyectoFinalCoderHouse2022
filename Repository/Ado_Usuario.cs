@@ -4,15 +4,11 @@ using System.Data.SqlClient;
 
 namespace ProyectoFinalCoderHouse2022.Repository
 {
-
     public class Ado_Usuario
     {
-        
         public static Usuario TraerUsuario(int idUsu)
         {
             Usuario usuario = new Usuario();
-
-
             using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
             {
                 conecction.Open();
@@ -40,12 +36,8 @@ namespace ProyectoFinalCoderHouse2022.Repository
                 return usuario;
             }
         }
-
-
         public static void DeleteUsuario(int idUsuario)
         {
-
-
             using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
             {
                 conecction.Open();
@@ -62,8 +54,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
         }
         public static void ModificarUsuario(Usuario usu)
         {
-
-
             using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
             {
                 conecction.Open();
@@ -99,8 +89,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
                 cmd.Parameters.Add(paramMailUsu);
                 cmd.ExecuteNonQuery();
             }
-
-
         }
 
         public static void CrearUsuario(Usuario usu)
@@ -133,21 +121,17 @@ namespace ProyectoFinalCoderHouse2022.Repository
                     var paramMailUsu = new SqlParameter("mailUsu", System.Data.SqlDbType.VarChar);
                     paramMailUsu.Value = usu.Mail;
 
-
                     cmd.Parameters.Add(paramNombreUsu);
                     cmd.Parameters.Add(parammApellidoUsu);
                     cmd.Parameters.Add(paramNombreUsuarioUsu);
                     cmd.Parameters.Add(paramContraseñaUsu);
                     cmd.Parameters.Add(paramMailUsu);
                     cmd.ExecuteNonQuery();
-
-              
                 }
                 else
                 {
                     throw new Exception("El nombre de usuario ya esta en uso..");
                 }
-                
             }
         }
        

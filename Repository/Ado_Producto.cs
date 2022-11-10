@@ -9,7 +9,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
         {
             var listaProductos = new List<Producto>();
 
-
             using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
             {
                 conecction.Open();
@@ -35,9 +34,7 @@ namespace ProyectoFinalCoderHouse2022.Repository
 
                     listaProductos.Add(prod);
                 }
-
                 reader.Close();
-
                 return listaProductos;
             }
         }
@@ -66,9 +63,7 @@ namespace ProyectoFinalCoderHouse2022.Repository
 
                     listaProductos.Add(prod);
                 }
-
                 reader.Close();
-
                 return listaProductos;
             }
         }
@@ -82,8 +77,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
                 SqlCommand cmd = conecction.CreateCommand();
                 cmd.CommandText = "Insert into Producto ( Descripciones, Costo, PrecioVenta, Stock, IdUsuario)" +
                                    "values ( @descripcionesProd, @costoProd, @precioVentaProd, @stockProd, @idUsuarioProd)";
-
-
 
                 var paramDescripcionProd = new SqlParameter("descripcionesProd", System.Data.SqlDbType.VarChar);
                 paramDescripcionProd.Value = prod.Descripcion;
@@ -110,8 +103,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
         }
         public static void ModificarProducto(Producto prod)
         {
-
-
             using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
             {
                 conecction.Open();

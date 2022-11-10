@@ -6,7 +6,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
     {
         public static string connectionString()
         {
-
             SqlConnectionStringBuilder conecctionbuilder = new SqlConnectionStringBuilder();
             conecctionbuilder.DataSource = "NIKITODEVSS1";
             conecctionbuilder.InitialCatalog = "SistemaGestion1";

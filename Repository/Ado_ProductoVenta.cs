@@ -8,12 +8,10 @@ namespace ProyectoFinalCoderHouse2022.Repository
         public static List<ProductoVenta> TraerProductoVendido(int idUsuario)
         {
             var listaProductoVenta = new List<ProductoVenta>();
-
             List<Producto> productos = Ado_Producto.TraerProductoPorUsuario(idUsuario);
 
             foreach (Producto p in productos)
             {
-
                 using (SqlConnection conecction = new SqlConnection(Connection.connectionString()))
                 {
                     conecction.Open();
@@ -37,11 +35,9 @@ namespace ProyectoFinalCoderHouse2022.Repository
 
                         listaProductoVenta.Add(prodven);
                     }
-
                     reader.Close();
                 }
             }
-
             return listaProductoVenta;
         }
     }

@@ -37,9 +37,7 @@ namespace ProyectoFinalCoderHouse2022.Repository
                     usuario.Mail = reader.GetValue(5).ToString();
                 }
                 reader.Close();
-
             }
-
             if (usuario.Id == 0) // No explicaron como devolver un error en una api...
             {
                 usuario.Nombre = "Error";
@@ -53,14 +51,6 @@ namespace ProyectoFinalCoderHouse2022.Repository
             {
                 return usuario;
             }
-
         }
-
-
-
-
-
-
-
     }
 }

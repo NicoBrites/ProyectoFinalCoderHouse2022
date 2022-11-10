@@ -12,13 +12,11 @@ namespace ProyectoFinalCoderHouse2022.Controllers
         public void Crear([FromBody] CrearVenta venta)
         {
             Ado_Venta.CargarVenta(venta);
-
         }
         [HttpDelete]
         public void Delete([FromBody] int idVenta)
         {
             Ado_Venta.EliminarVenta(idVenta);
-
         }
         [HttpGet]
         public List<TraerVenta> TraerVenta() // list<TraerVenta>
